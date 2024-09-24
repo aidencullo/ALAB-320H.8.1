@@ -1,14 +1,25 @@
+import React, { useState, useEffect } from 'react'
+
 import getShips from './services/sw-api'
 
 function App() {
 
-  getShips().then(data => {
-    console.log(data)
-  })
+  const [ships, setShips] = useState([])
+
+  useEffect(() => {
+    getShips()
+      .then((ships) => {
+	setShips(ships)
+      })
+  }, [])
 
   return (
     <>
-      <p> Hello World </p>
+      {ships.map((ship, index) => (
+	<div key={index}>
+          <h1>{ship.name}</h1>
+	</div>
+      ))}
     </>
   )
 }
